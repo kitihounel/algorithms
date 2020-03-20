@@ -4,11 +4,13 @@ from sys import stdin, stderr
 Interval = namedtuple("Interval", ["begin", "end", "index"])
 
 def min_interval_cover(target, parts):
+    """Minimum interval cover algorithm"""
+
     def first_true(iterable, default=False, pred=None):
         return next(filter(pred, iterable), default)
 
     # This handles the case of a point interval which is not
-    # well handled by standard algortihm.
+    # well handled by standard algorithm.
     if target.begin == target.end:
         pred = lambda p: p.begin <= target.begin <= p.end
         p = first_true(parts, None, pred)
@@ -32,7 +34,7 @@ def min_interval_cover(target, parts):
             picked.append(parts[best])
             lo, hi = parts[best].end, s.end
             best = j
-        # Minor optimization. We stop as soon as we read target interval end.
+        # Minor optimization. We stop as soon as we reach target interval end.
         if hi >= target.end:
             picked.append(parts[best])
             break

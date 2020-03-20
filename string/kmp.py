@@ -1,10 +1,8 @@
-"""KMP string matching algorithm
-
-Code of prefix function from https://cp-algorithms.com/prefix-function.html
-Code of KMP algorithm from https://www.geeksforgeeks/kmp-algorithm-for-pattern-searching/
-"""
-
 def compute_pi(s):
+    """Prefix function used by KMP algorithm
+
+    Code from https://cp-algorithms.com/prefix-function.html
+    """
     p = [0 for _ in range(len(s))]
     for i in range(1, len(s)):
         j = p[i-1]
@@ -16,6 +14,10 @@ def compute_pi(s):
     return p
 
 def kmp(text, pattern):
+    """KMP algorithm
+
+    Code of KMP algorithm from https://www.geeksforgeeks/kmp-algorithm-for-pattern-searching/
+    """
     p = compute_pi(pattern)
     i, j = 0, 0
     indexes = []
