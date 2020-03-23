@@ -4,7 +4,7 @@ from sys import stdin, stderr
 Interval = namedtuple("Interval", ["begin", "end", "index"])
 
 def min_interval_cover(target, parts):
-    """Minimum interval cover algorithm"""
+    """Minimum interval cover algorithm."""
 
     def first_true(iterable, default=False, pred=None):
         return next(filter(pred, iterable), default)

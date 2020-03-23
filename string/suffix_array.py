@@ -10,9 +10,9 @@ class Suffix:
         return self.rank < other.rank
 
 def suffix_array(s):
-    """Suffix array construction
+    """Suffix array construction.
 
-    Code adapted from https://hackerrank.com/topics/suffix-array
+    Code adapted from https://hackerrank.com/topics/suffix-array.
     """
     n = len(s)
     a = [Suffix(j, s) for j in range(n)]
@@ -39,9 +39,14 @@ def suffix_array(s):
     return [suffix.index for suffix in a]
 
 def lcp_array(s, suffixes):
-    """Longest common prefix array with Kasai algorithm
+    """Longest common prefix array with Kasai algorithm.
 
-    Code adapted from https://hackerrank.com/topics/lcp-array
+    Code adapted from https://hackerrank.com/topics/lcp-array.
+    Explaination about the meaning of values in the LCP is from
+    the article of GeeksForGeeks about LCP array.
+    A value a[i] indicates length of the longest common prefix of the
+    suffixes indexed by suffixes[i] and suffixes[i+1].
+    suffixes[n-1] is not defined as there is no suffix after it.
     """
     n = len(s)
     a = [0 for _ in range(n)]
@@ -57,11 +62,6 @@ def lcp_array(s, suffixes):
         while i + k < n and j + k < n and s[i+k] == s[j+k]:
             k += 1
         a[r] = k
-        k = k - 1 if k != 0 else 0
+        k = k - 1 if k > 0 else 0
 
     return a
-
-s = "abcdefa"
-a = suffix_array(s)
-p = lcp_array(s, a)
-print(a, p)

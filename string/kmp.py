@@ -1,7 +1,7 @@
 def compute_pi(s):
-    """Prefix function used by KMP algorithm
+    """Prefix function used by KMP algorithm.
 
-    Code from https://cp-algorithms.com/prefix-function.html
+    Code from https://cp-algorithms.com/prefix-function.html.
     """
     p = [0 for _ in range(len(s))]
     for i in range(1, len(s)):
@@ -14,9 +14,9 @@ def compute_pi(s):
     return p
 
 def kmp(text, pattern):
-    """KMP algorithm
+    """KMP algorithm.
 
-    Code of KMP algorithm from https://www.geeksforgeeks/kmp-algorithm-for-pattern-searching/
+    Code of KMP algorithm from https://www.geeksforgeeks/kmp-algorithm-for-pattern-searching/.
     """
     p = compute_pi(pattern)
     i, j = 0, 0
