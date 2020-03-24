@@ -1,3 +1,5 @@
+from operator import floordiv as div
+
 class Suffix:
     def __init__(self, index, s):
         self.index = index
@@ -19,11 +21,11 @@ def suffix_array(s):
     ranks = [ord(c) for c in s]
     length = 1
     while length < n:
-        for j, suffix in enumerate(a):
-            x = ranks[j]
-            y = ranks[j+length] if j + length < n else -1
+        for suffix in a:
+            m = div(length, 2)
+            x = ranks[suffix.index]
+            y = ranks[suffix.index + m] if suffix.index + m < n else -1
             suffix.rank = (x, y)
-            suffix.index = j
         a.sort()
 
         rank = 0
