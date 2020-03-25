@@ -40,6 +40,28 @@ def suffix_array(s):
 
     return [suffix.index for suffix in a]
 
+def suffix_array_v2(s):
+    """Suffix array construction, altenative implementation."""
+    n = len(s)
+    suffixes = [j for j in range(n)]
+    ranks = [ord(c) for c in s]
+    sortKeys = [None for j in range(n)]
+    length = 1
+    while length < len(s):
+        m = div(length, 2)
+        for j in suffixes:
+            sortKeys[j] = (ranks[j], ranks[j+m] if  j + m < n else -1)
+        suffixes.sort(key=lambda j: sortKeys[j])
+
+        ranks[suffixes[0]] = 0
+        for j in range(1, n):
+            p, c = suffixes[j-1], suffixes[j]
+            ranks[c] = ranks[p] + (1 if sortKeys[p] != sortKeys[c] else 0)
+
+        length *= 2
+
+    return suffixes
+
 def lcp_array(s, suffixes):
     """Longest common prefix array with Kasai algorithm.
 
