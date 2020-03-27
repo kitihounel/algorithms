@@ -11,6 +11,10 @@ class Shift:
             raise Exception("Invalid argument for comparison with Shift")
         return self.rank < other.rank
 
+def next_power_of_two(n):
+    """Return the smallest power of 2 greater or equal to an integer."""
+    return 1 if n <= 0 else n if not (n & (n - 1)) else 1 << n.bit_length()
+
 def sorted_cyclic_shifts(s):
     """Sort all cyclic shifts of a string.
 
@@ -19,12 +23,13 @@ def sorted_cyclic_shifts(s):
     n = len(s)
     shifts = [Shift(j, s) for j in range(n)]
     ranks = [ord(c) for c in s]
-    length = 1
-    while length < n:
+    maxLength = next_power_of_two(n)
+    chunkLength = 1
+    while chunkLength <= maxLength:
+        h = div(chunkLength, 2)
         for shift in shifts:
-            m = div(length, 2)
             x = ranks[shift.index]
-            y = ranks[(shift.index + m) % n]
+            y = ranks[(shift.index + h) % n]
             shift.rank = (x, y)
         shifts.sort()
 
@@ -36,7 +41,7 @@ def sorted_cyclic_shifts(s):
                 rank += 1
             ranks[current.index] = rank
 
-        length *= 2
+        chunkLength *= 2
 
     return [shift.index for shift in shifts]
 

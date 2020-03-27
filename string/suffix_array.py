@@ -11,6 +11,10 @@ class Suffix:
             raise Exception("Invalid argument for comparison with Suffix")
         return self.rank < other.rank
 
+def next_power_of_two(n):
+    """Return the smallest power of 2 greater or equal to an integer."""
+    return 1 if n <= 0 else n if not (n & (n - 1)) else 1 << n.bit_length()
+
 def suffix_array(s):
     """Suffix array construction.
 
@@ -19,12 +23,13 @@ def suffix_array(s):
     n = len(s)
     a = [Suffix(j, s) for j in range(n)]
     ranks = [ord(c) for c in s]
-    length = 1
-    while length < n:
+    maxLength = next_power_of_two(n)
+    chunkLength = 1
+    while chunkLength <= maxLength:
+        h = div(chunkLength, 2)
         for suffix in a:
-            m = div(length, 2)
             x = ranks[suffix.index]
-            y = ranks[suffix.index + m] if suffix.index + m < n else -1
+            y = ranks[suffix.index + h] if suffix.index + h < n else -1
             suffix.rank = (x, y)
         a.sort()
 
@@ -36,7 +41,7 @@ def suffix_array(s):
                 rank += 1
             ranks[current.index] = rank
 
-        length *= 2
+        chunkLength *= 2
 
     return [suffix.index for suffix in a]
 
@@ -46,11 +51,12 @@ def suffix_array_v2(s):
     suffixes = [j for j in range(n)]
     ranks = [ord(c) for c in s]
     sortKeys = [None for j in range(n)]
-    length = 1
-    while length < len(s):
-        m = div(length, 2)
+    maxLength = next_power_of_two(n)
+    chunkLength = 1
+    while chunkLength <= maxLength:
+        h = div(chunkLength, 2)
         for j in suffixes:
-            sortKeys[j] = (ranks[j], ranks[j+m] if  j + m < n else -1)
+            sortKeys[j] = (ranks[j], ranks[j+h] if  j + h < n else -1)
         suffixes.sort(key=lambda j: sortKeys[j])
 
         ranks[suffixes[0]] = 0
@@ -58,7 +64,7 @@ def suffix_array_v2(s):
             p, c = suffixes[j-1], suffixes[j]
             ranks[c] = ranks[p] + (1 if sortKeys[p] != sortKeys[c] else 0)
 
-        length *= 2
+        chunkLength *= 2
 
     return suffixes
 
