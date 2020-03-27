@@ -40,6 +40,6 @@ def sorted_cyclic_shifts(s):
 
     return [shift.index for shift in shifts]
 
-def burrows_wheeler(s):
+def bwt(s):
     """Burrows-Wheeler transform."""
     return "".join(s[j-1] for j in sorted_cyclic_shifts(s))

@@ -40,8 +40,8 @@ def suffix_array(s):
 
     return [suffix.index for suffix in suffixes]
 
-def suffix_array_fast(s):
-    """Suffix array construction, altenative implementation."""
+def suffix_array_alt(s):
+    """Suffix array construction, altenative and faster implementation."""
     n = len(s)
     suffixes = [j for j in range(n)]
     ranks = [ord(c) for c in s]
@@ -103,7 +103,7 @@ def sorted_cyclic_shifts(s):
     n = len(s)
     return [j for j in suffix_array(s * 2) if j < n]
 
-def burrows_wheeler(s):
+def bwt(s):
     """Compute Burrows-Wheeler transform using suffix array.
 
     IMPORTANT: there is faster version of this function in the file named
