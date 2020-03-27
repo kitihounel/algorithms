@@ -11,10 +11,6 @@ class Shift:
             raise Exception("Invalid argument for comparison with Shift")
         return self.rank < other.rank
 
-def next_power_of_two(n):
-    """Return the smallest power of 2 greater or equal to an integer."""
-    return 1 if n <= 0 else n if not (n & (n - 1)) else 1 << n.bit_length()
-
 def sorted_cyclic_shifts(s):
     """Sort all cyclic shifts of a string.
 
@@ -23,10 +19,9 @@ def sorted_cyclic_shifts(s):
     n = len(s)
     shifts = [Shift(j, s) for j in range(n)]
     ranks = [ord(c) for c in s]
-    maxLength = next_power_of_two(n)
-    chunkLength = 1
-    while chunkLength <= maxLength:
-        h = div(chunkLength, 2)
+    length, limit = 1, 2 * n
+    while length < limit:
+        h = div(length, 2)
         for shift in shifts:
             x = ranks[shift.index]
             y = ranks[(shift.index + h) % n]
@@ -41,11 +36,10 @@ def sorted_cyclic_shifts(s):
                 rank += 1
             ranks[current.index] = rank
 
-        chunkLength *= 2
+        length *= 2
 
     return [shift.index for shift in shifts]
 
 def burrows_wheeler(s):
     """Burrows-Wheeler transform."""
-    a = sorted_cyclic_shifts(s)
-    return "".join(s[j-1] for j in a)
+    return "".join(s[j-1] for j in sorted_cyclic_shifts(s))
