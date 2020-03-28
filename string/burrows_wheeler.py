@@ -42,4 +42,32 @@ def sorted_cyclic_shifts(s):
 
 def bwt(s):
     """Burrows-Wheeler transform."""
-    return "".join(s[j-1] for j in sorted_cyclic_shifts(s))
+    shifts = sorted_cyclic_shifts(s)
+    t = "".join(s[j-1] for j in shifts)
+    return t, shifts.index(0)
+
+class InvBwtMatrixRow():
+    def __init__(self):
+        self.string = ""
+        self.rank = None
+
+    def __lt__(self, other):
+        if not isinstance(other, InvBwtMatrixRow):
+            raise Exception("Invalid object for comparison with InvBwtMatrixRow")
+        return self.rank < other.rank
+
+def inverse_bwt(s, k):
+    """Burrows-Wheeler transform. Don't use it because it is not efficient."""
+    n = len(s)
+    rows = [InvBwtMatrixRow() for _ in range(n)]
+    ranks = [-1 for _ in range(n)]
+    for _ in range(n):
+        for j, c in enumerate(s):
+            rows[j].string = c + rows[j].string
+            rows[j].rank = (ord(c), ranks[j])
+        rows.sort()
+        ranks[0] = 0
+        for j in range(1, n):
+            ranks[j] = ranks[j-1] + (1 if rows[j-1].rank != rows[j] else 0)
+
+    return rows[k].string
