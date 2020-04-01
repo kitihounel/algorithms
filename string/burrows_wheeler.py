@@ -14,7 +14,7 @@ class Shift:
 def sorted_cyclic_shifts(s):
     """Sort all cyclic shifts of a string.
 
-    Code adapted from http://cp-algorithms.com/string/suffix-array.html.
+    Code from http://cp-algorithms.com/string/suffix-array.html.
     """
     n = len(s)
     shifts = [Shift(j, s) for j in range(n)]
@@ -46,28 +46,34 @@ def bwt(s):
     t = "".join(s[j-1] for j in shifts)
     return t, shifts.index(0)
 
-class InvBwtMatrixRow():
-    def __init__(self):
-        self.string = ""
-        self.rank = None
-
-    def __lt__(self, other):
-        if not isinstance(other, InvBwtMatrixRow):
-            raise Exception("Invalid object for comparison with InvBwtMatrixRow")
-        return self.rank < other.rank
-
-def inverse_bwt(s, k):
-    """Burrows-Wheeler transform. Don't use it because it is not efficient."""
-    n = len(s)
-    rows = [InvBwtMatrixRow() for _ in range(n)]
-    ranks = [-1 for _ in range(n)]
+def inverse_bwt(t, k):
+    """Inverse Burrows-Wheeler transform."""
+    n = len(t)
+    f = sorted((ch, j) for j, ch in enumerate(t))
+    chars = []
     for _ in range(n):
-        for j, c in enumerate(s):
-            rows[j].string = c + rows[j].string
-            rows[j].rank = (ord(c), ranks[j])
-        rows.sort()
-        ranks[0] = 0
-        for j in range(1, n):
-            ranks[j] = ranks[j-1] + (1 if rows[j-1].rank != rows[j] else 0)
+        ch, j = f[k]
+        chars.append(ch)
+        k = j
+    return "".join(chars)
 
-    return rows[k].string
+def inverse_bwt_slow(t, k):
+    """Inverse Burrows-Wheeler Transform, common implementation.
+
+    A very good article on the Burrows-Wheeler tansform is available @
+    http://spencer-carroll.com/an-easy-to-understand-explanation-of-the-burrows-wheeler-transform/.
+
+    The code used here is inspired from the one available @
+    https://gist.github.com/dmckean/9723bc06254809e9068f.
+    """
+    n = len(t)
+    f = sorted((ch, j) for j, ch in enumerate(t))
+    a = [None for _ in range(n)]
+    for j, tup in enumerate(f):
+        _, i = tup
+        a[i] = j
+    j, ls = k, []
+    for _ in range(n):
+        ls.append(t[j])
+        j = a[j]
+    return "".join(ch for ch in reversed(ls))

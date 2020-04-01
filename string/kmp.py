@@ -16,7 +16,7 @@ def compute_pi(s):
 def kmp(text, pattern):
     """KMP algorithm.
 
-    Code of KMP algorithm from https://www.geeksforgeeks/kmp-algorithm-for-pattern-searching/.
+    Code from https://www.geeksforgeeks/kmp-algorithm-for-pattern-searching/.
     """
     p = compute_pi(pattern)
     i, j = 0, 0

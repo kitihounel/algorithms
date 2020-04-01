@@ -1,6 +1,6 @@
 """Aho-Corasick string matching algorithm.
 
-Code adapted from https://iq.opengenus.org/aho-corasick-algorithm/.
+Code from https://iq.opengenus.org/aho-corasick-algorithm/.
 """
 
 from collections import deque, defaultdict

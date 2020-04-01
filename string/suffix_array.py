@@ -14,7 +14,7 @@ class Suffix:
 def suffix_array(s):
     """Suffix array construction.
 
-    Code adapted from https://hackerrank.com/topics/suffix-array.
+    Code from https://hackerrank.com/topics/suffix-array.
     """
     n = len(s)
     suffixes = [Suffix(j, s) for j in range(n)]
@@ -40,7 +40,7 @@ def suffix_array(s):
 
     return [suffix.index for suffix in suffixes]
 
-def suffix_array_alt(s):
+def suffix_array_fast(s):
     """Suffix array construction, altenative and faster implementation."""
     n = len(s)
     suffixes = [j for j in range(n)]
@@ -65,12 +65,13 @@ def suffix_array_alt(s):
 def lcp_array(s, suffixes):
     """Longest common prefix array with Kasai algorithm.
 
-    Code adapted from https://hackerrank.com/topics/lcp-array.
-    Explaination about the meaning of values in the LCP is from
-    the article of GeeksForGeeks about LCP array.
+    Explaination about the meaning of values in the LCP can be
+    found in the article of GeeksForGeeks about LCP array.
     A value a[i] indicates length of the longest common prefix of the
     suffixes indexed by suffixes[i] and suffixes[i+1].
     suffixes[n-1] is not defined as there is no suffix after it.
+
+    Code from https://hackerrank.com/topics/lcp-array.
     """
     n = len(s)
     a = [0 for _ in range(n)]
@@ -90,23 +91,16 @@ def lcp_array(s, suffixes):
 
     return a
 
-def sorted_cyclic_shifts(s):
-    """Sort the cyclic shifts of a string using suffix array.
+def bwt(s):
+    """Compute Burrows-Wheeler transform using suffix array.
 
     It works by appending the string to itself and computing
     the suffix array of the result string. It then selects suffixes
     which indexes are less than |s|. These suffixes are the cyclic
     shifts of the original string.
-    IMPORTANT: there is faster version of this function in the file named
-    'burrows_wheeler.py'.
-    """
-    n = len(s)
-    return [j for j in suffix_array(s * 2) if j < n]
-
-def bwt(s):
-    """Compute Burrows-Wheeler transform using suffix array.
 
     IMPORTANT: there is faster version of this function in the file named
     'burrows_wheeler.py'.
     """
-    return "".join(s[j-1] for j in sorted_cyclic_shifts(s))
+    indexes = [j for j in suffix_array(s * 2) if j < len(s)]
+    return "".join(s[j-1] for j in indexes)
