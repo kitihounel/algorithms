@@ -87,7 +87,7 @@ def lcp_array(s, suffixes):
         while i + k < n and j + k < n and s[i+k] == s[j+k]:
             k += 1
         a[r] = k
-        k = k - 1 if k > 0 else 0
+        k = max(k - 1, 0)
 
     return a
 
