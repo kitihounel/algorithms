@@ -16,15 +16,16 @@ def build(arr, fn):
             feed[pointer] = fn(feed[pointer], arr[i])
     return feed
 
-def update(index, value, arr, feed, fn):
+def update(arr, i, value, updValue, feed, fn):
     k = ceil(sqrt(len(arr)))
-    pointer = index / k
-    feed[pointer] = fn(value, feed[pointer])
-    arr[index] = value
+    pointer = floordiv(i, k)
+    feed[pointer] = fn(updValue, feed[pointer])
+    arr[i] = value
 
 def query(arr, l, r, feed, fn):
     k = ceil(sqrt(len(arr))) 
     ans = arr[l]
+    l += 1
     while l < r and l % k != 0 and l != 0:
         ans = fn(ans, arr[l])
         l += 1
@@ -32,7 +33,7 @@ def query(arr, l, r, feed, fn):
         i = floordiv(l, k)
         ans = fn(ans, feed[i])
         l += k
-    while l<= r:
+    while l <= r:
         ans = fn(ans, arr[l])
         l += 1
     return ans
