@@ -17,7 +17,7 @@ def z_fn(s):
     return z
 
 def prefix_occurrences(s):
-    """Computes the number of occurences of each prefix of a given string.
+    """Compute the number of occurences of each prefix of a given string.
 
     Returns an array a of same length as s such that a[i] is the number
     of times the prefix s[0..i(included)] appears in s.

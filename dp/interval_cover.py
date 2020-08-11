@@ -1,5 +1,4 @@
 from collections import namedtuple
-from sys import stdin, stderr
 
 Interval = namedtuple("Interval", ["begin", "end", "index"])
 

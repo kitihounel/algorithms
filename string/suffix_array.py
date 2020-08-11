@@ -1,4 +1,4 @@
-from operator import floordiv as div
+from operator import floordiv
 
 class Suffix:
     def __init__(self, index, s):
@@ -11,7 +11,7 @@ class Suffix:
             raise Exception("Invalid argument for comparison with Suffix")
         return self.rank < other.rank
 
-def suffix_array(s):
+def suffix_array_slow(s):
     """Suffix array construction.
 
     Code from https://hackerrank.com/topics/suffix-array.
@@ -21,7 +21,7 @@ def suffix_array(s):
     ranks = [ord(c) for c in s]
     length, limit = 1, 2 * n
     while length < limit:
-        h = div(length, 2)
+        h = floordiv(length, 2)
         for suffix in suffixes:
             x = ranks[suffix.index]
             y = ranks[suffix.index + h] if suffix.index + h < n else -1
@@ -40,15 +40,15 @@ def suffix_array(s):
 
     return [suffix.index for suffix in suffixes]
 
-def suffix_array_fast(s):
-    """Suffix array construction, altenative and faster implementation."""
+def suffix_array(s):
+    """Suffix array construction, faster implementation."""
     n = len(s)
     suffixes = [j for j in range(n)]
     ranks = [ord(c) for c in s]
     sortKeys = [None for j in range(n)]
     length, limit = 1, 2 * n
     while length < limit:
-        h = div(length, 2)
+        h = floordiv(length, 2)
         for j in suffixes:
             sortKeys[j] = (ranks[j], ranks[j+h] if  j + h < n else -1)
         suffixes.sort(key=lambda j: sortKeys[j])
@@ -104,3 +104,30 @@ def bwt(s):
     """
     indexes = [j for j in suffix_array(s * 2) if j < len(s)]
     return "".join(s[j-1] for j in indexes)
+
+def distinct_substring_count(s):
+    """Return the number of distinct substrings in a given string.
+
+    Note that the empty substring is not taken into account.
+    For explaination, see these pages.
+        - stackoverflow.com/questions/34882666, answer by David Eisenstat.
+        - https://www.geeksforgeeks.org/count-distinct-substrings-string-using-suffix-array/.
+    """
+    n = len(s)
+    a = suffix_array(s)
+    p = lcp_array(s, a)
+    return floordiv(n * (n + 1), 2) - sum(p)
+
+def repeated_substring_count(s):
+    """Return the number of substrings that occurs more than once in a string.
+
+    Related to the 'Repeated Substrings' problem on Kattis,
+    https://open.kattis.com/problems/substrings.
+    """
+    a = suffix_array(s)
+    p = lcp_array(s, a)
+    k = p[0]
+    for i in range(1, len(s)):
+        if p[i] > p[i-1]:
+            k += p[i] - p[i-1]
+    return k
