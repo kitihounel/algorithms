@@ -1,11 +1,10 @@
 """Sqrt decomposition. From https://iq.opengenus.org/range-minimum-query-square-root-decomposition/"""
 from math import ceil, sqrt
-from operator import floordiv
 
 def build(a, fn):
     n = len(a)
     k = ceil(sqrt(n))
-    m = floordiv(n, k) + (1 if n % k != 0 else 0)
+    m = n // k + (1 if n % k != 0 else 0)
     buckets = [0 for _ in range(m)]
     ptr = -1
     for i in range(n):
@@ -21,7 +20,7 @@ def update(a, i, value, buckets, fn):
     # it runs in O(sqrt(N)) instead of O(1).
     n = len(a)
     k = ceil(sqrt(n))
-    ptr = floordiv(i, k)
+    ptr = i // k
     lo = ptr * k
     hi = min(lo + k, n) - 1
     if i == lo == hi:
@@ -46,7 +45,7 @@ def query(a, l, r, buckets, fn):
         ans = fn(ans, a[l])
         l += 1
     while l + k <= r:
-        i = floordiv(l, k)
+        i = l // k
         ans = fn(ans, buckets[i])
         l += k
     while l <= r:

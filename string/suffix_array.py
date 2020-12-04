@@ -1,5 +1,3 @@
-from operator import floordiv
-
 class Suffix:
     def __init__(self, index, s):
         self.index = index
@@ -21,7 +19,7 @@ def suffix_array_slow(s):
     ranks = [ord(c) for c in s]
     length, limit = 1, 2 * n
     while length < limit:
-        h = floordiv(length, 2)
+        h = length // 2
         for suffix in suffixes:
             x = ranks[suffix.index]
             y = ranks[suffix.index + h] if suffix.index + h < n else -1
@@ -48,7 +46,7 @@ def suffix_array(s):
     sortKeys = [None for j in range(n)]
     length, limit = 1, 2 * n
     while length < limit:
-        h = floordiv(length, 2)
+        h = length // 2
         for j in suffixes:
             sortKeys[j] = (ranks[j], ranks[j+h] if  j + h < n else -1)
         suffixes.sort(key=lambda j: sortKeys[j])
@@ -116,7 +114,7 @@ def distinct_substring_count(s):
     n = len(s)
     a = suffix_array(s)
     p = lcp_array(s, a)
-    return floordiv(n * (n + 1), 2) - sum(p)
+    return n * (n + 1) // 2 - sum(p)
 
 def repeated_substring_count(s):
     """Return the number of substrings that occurs more than once in a string.

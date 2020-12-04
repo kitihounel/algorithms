@@ -1,5 +1,3 @@
-from operator import floordiv
-
 class SegmentTreeNode:
     def __init__(self, start, end):
         self.start = start
@@ -15,7 +13,7 @@ def build(a, l, r, fn):
     if l == r:
         result.value = a[l]
     else:
-        m = floordiv(l + r, 2)
+        m = (l + r) // 2
         result.left = build(a, l, m, fn)
         result.right = build(a, m + 1, r, fn)
         if result.left is not None and result.right is not None:

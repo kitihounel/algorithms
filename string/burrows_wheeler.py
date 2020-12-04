@@ -1,5 +1,3 @@
-from operator import floordiv as div
-
 class Shift:
     def __init__(self, index, s):
         self.index = index
@@ -21,7 +19,7 @@ def sorted_cyclic_shifts(s):
     ranks = [ord(c) for c in s]
     length, limit = 1, 2 * n
     while length < limit:
-        h = div(length, 2)
+        h = length // 2
         for shift in shifts:
             x = ranks[shift.index]
             y = ranks[(shift.index + h) % n]
