@@ -39,6 +39,10 @@ class UnionFind:
             r, d = (x, y) if self.weights[x] > self.weights[y] else (y, x)
             self.weights[r] += self.weights[d]
             self.parents[d] = r
+            root = r
+        else:
+            root = x
+        return root
 
     def union_all(self, *objects):
         """Find the sets containing the given objects and merge them all."""
@@ -48,3 +52,4 @@ class UnionFind:
             if r != heaviest:
                 self.weights[heaviest] += self.weights[r]
                 self.parents[r] = heaviest
+        return heaviest
