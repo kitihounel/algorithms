@@ -31,7 +31,7 @@ def idfs(s, neighbors, start_time):
         if not pushed_again:
             finish_time[u] = current_time
             current_time += 1
-    return discovery_time, finish_time
+    return discovery_time, finish_time, current_time
 
 def visit(u, neighbors, visited: set):
     visited.add(u)
