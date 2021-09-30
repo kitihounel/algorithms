@@ -1,6 +1,7 @@
 from collections import deque
 from graph_theory.dfs import visit
 
+
 def bfs(s, neighbors):
     q = deque()
     q.append(s)

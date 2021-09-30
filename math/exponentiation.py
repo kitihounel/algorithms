@@ -12,6 +12,7 @@ def rexp(b, e):
         p = rexp(b, q)
         return p * p * (b if m == 1 else 1) # The expression in braces can be replaced by (b ** m)
 
+
 def iexp(b, e):
     """Fast exponentiation, iterative version.
 
@@ -29,6 +30,7 @@ def iexp(b, e):
         e, acc = q, acc * acc
     return p
 
+
 # When trying to understand this algorithm, GeeksForGeeks article about modular exponentation helped us.
 def mod_exp(b, e, m):
     """Modular exponentiation."""
@@ -40,6 +42,7 @@ def mod_exp(b, e, m):
         e = q
         acc = acc * acc % m
     return p
+
 
 if __name__ == "__main__":
     print("Testing exponentiation function.")

@@ -13,6 +13,7 @@ def compute_pi(s):
         p[i] = j
     return p
 
+
 def kmp(text, pattern):
     """KMP algorithm.
 

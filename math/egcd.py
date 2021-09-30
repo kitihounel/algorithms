@@ -9,6 +9,7 @@ def egcd(a, b):
     g = b
     return g, x, y
 
+
 # Code from geeksforgeeks.com/euclidean-algorithms-basic-and-extended.
 def egcd_recursive(a, b):
     """Extended euclidean algorithm, recursive implementation."""
@@ -18,6 +19,7 @@ def egcd_recursive(a, b):
     x = v - (b // a) * u
     y = u
     return g, x, y
+
 
 if __name__ == "__main__":
     print("Comparing results of both versions of extended gcd...")

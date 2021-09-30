@@ -1,5 +1,6 @@
 from operator import itemgetter
 
+
 class UnionFind:
     def __init__(self, n):
         self.parents = {}
@@ -36,6 +37,7 @@ class UnionFind:
         self.subset_count -= 1
         return True
 
+
 def min_spanning_tree(n, edges):
     """Min spanning tree construction using Kruskal algorithm.
     
@@ -58,6 +60,7 @@ def min_spanning_tree(n, edges):
             tree.append(e)
     tree.sort()
     return tree, cost, ds.subset_count
+
 
 if __name__ == "__main__":
     print("Checking min spanning trees...")

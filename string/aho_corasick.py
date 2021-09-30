@@ -2,8 +2,8 @@
 
 Code from https://iq.opengenus.org/aho-corasick-algorithm/.
 """
-
 from collections import deque, defaultdict
+
 
 class TrieNode:
     def __init__(self):
@@ -11,6 +11,7 @@ class TrieNode:
         self.suffixLink = None
         self.outputLink = None
         self.patternIndex = -1
+
 
 def build_trie(root, words):
     for j, word in enumerate(words):
@@ -22,6 +23,7 @@ def build_trie(root, words):
                 current.children[c] = child
             current = child
         current.patternIndex = j
+
 
 def build_suffix_and_output_links(root):
     root.suffixLink = root
@@ -42,6 +44,7 @@ def build_suffix_and_output_links(root):
 
         i = current.suffixLink.patternIndex
         current.outputLink = current.suffixLink if i >= 0 else current.suffixLink.outputLink
+
 
 def aho_corasick(text, patterns):
     root = TrieNode()

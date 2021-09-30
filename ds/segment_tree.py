@@ -6,6 +6,7 @@ class SegmentTreeNode:
         self.left = None
         self.right = None
 
+
 def build(a, l, r, fn):
     if l > r:
         return None
@@ -24,6 +25,7 @@ def build(a, l, r, fn):
             result.value = result.right.value
     return result
 
+
 def query(tree, l, r, fn):
     if tree is None:
         return None
@@ -34,6 +36,7 @@ def query(tree, l, r, fn):
     if r < tree.start:
         return None
     return fn(query(tree.left, l, r, fn), query(tree.right, l, r, fn))
+
 
 def update(tree, i, value, fn):
     if tree is None:

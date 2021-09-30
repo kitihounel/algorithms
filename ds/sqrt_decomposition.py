@@ -1,6 +1,7 @@
 """Sqrt decomposition. From https://iq.opengenus.org/range-minimum-query-square-root-decomposition/"""
 from math import ceil, sqrt
 
+
 def build(a, fn):
     n = len(a)
     k = ceil(sqrt(n))
@@ -14,6 +15,7 @@ def build(a, fn):
         else:
             buckets[ptr] = fn(buckets[ptr], a[i])
     return buckets
+
 
 def update(a, i, value, buckets, fn):
     # To make the update funtion work with any function,
@@ -36,6 +38,7 @@ def update(a, i, value, buckets, fn):
             tmp = fn(u, v)
         buckets[ptr] = fn(tmp, value)
     a[i] = value
+
 
 def query(a, l, r, buckets, fn):
     k = ceil(sqrt(len(a))) 

@@ -1,5 +1,6 @@
 from itertools import product
 
+
 def coin_change(amount, coins):
     """Find a solution to an instance of the coin change problem.
 

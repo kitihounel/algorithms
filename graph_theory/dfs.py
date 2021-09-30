@@ -1,5 +1,6 @@
 from collections import defaultdict
 
+
 def idfs(s, neighbors, start_time):
     """Iterative DFS"""
     if start_time is None:
@@ -33,11 +34,13 @@ def idfs(s, neighbors, start_time):
             current_time += 1
     return discovery_time, finish_time, current_time
 
+
 def visit(u, neighbors, visited: set):
     visited.add(u)
     for v in neighbors[u]:
         if v not in visited:
             visit(v, neighbors, visited)
+
 
 def rdfs(vertices, neighbors):
     visited = set()

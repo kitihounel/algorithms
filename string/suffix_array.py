@@ -9,6 +9,7 @@ class Suffix:
             raise Exception("Invalid argument for comparison with Suffix")
         return self.rank < other.rank
 
+
 def suffix_array_slow(s):
     """Suffix array construction.
 
@@ -38,6 +39,7 @@ def suffix_array_slow(s):
 
     return [suffix.index for suffix in suffixes]
 
+
 def suffix_array(s):
     """Suffix array construction, faster implementation."""
     n = len(s)
@@ -59,6 +61,7 @@ def suffix_array(s):
         length *= 2
 
     return suffixes
+
 
 def lcp_array(s, suffixes):
     """Longest common prefix array with Kasai algorithm.
@@ -89,6 +92,7 @@ def lcp_array(s, suffixes):
 
     return a
 
+
 def bwt(s):
     """Compute Burrows-Wheeler transform using suffix array.
 
@@ -103,6 +107,7 @@ def bwt(s):
     indexes = [j for j in suffix_array(s * 2) if j < len(s)]
     return "".join(s[j-1] for j in indexes)
 
+
 def distinct_substring_count(s):
     """Return the number of distinct substrings in a given string.
 
@@ -115,6 +120,7 @@ def distinct_substring_count(s):
     a = suffix_array(s)
     p = lcp_array(s, a)
     return n * (n + 1) // 2 - sum(p)
+
 
 def repeated_substring_count(s):
     """Return the number of substrings that occurs more than once in a string.

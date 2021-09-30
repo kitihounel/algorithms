@@ -1,6 +1,7 @@
 from collections import Counter
 from heapq import heapify, heappop, heappush
 
+
 def toposort(vertices: set, neighbors: dict):
     """Topological sort of a graph, using Kahn's algorithm"""
     indegrees = Counter()
@@ -19,6 +20,7 @@ def toposort(vertices: set, neighbors: dict):
             if indegrees[v] == 0:
                 heappush(q, v)
     return False if k != len(vertices) else ordering
+
 
 if __name__ == "__main__":
     print("Testing toposort function...")

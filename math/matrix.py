@@ -1,11 +1,13 @@
 from itertools import product
 
+
 def matrix_product(a, b):
     m, n, o = len(a), len(b[0]), len(b)
     p = [[0 for _ in range(n)] for _ in range(m)]
     for i, j, k in product(range(m), range(n), range(o)):
         p[i][j] += a[i][k] * b[k][j]
     return p
+
 
 if __name__ == "__main__":
     a = [[1, 2], [3, 4]]

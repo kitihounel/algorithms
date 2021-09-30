@@ -9,6 +9,7 @@ class Shift:
             raise Exception("Invalid argument for comparison with Shift")
         return self.rank < other.rank
 
+
 def sorted_cyclic_shifts(s):
     """Sort all cyclic shifts of a string.
 
@@ -38,11 +39,13 @@ def sorted_cyclic_shifts(s):
 
     return [shift.index for shift in shifts]
 
+
 def bwt(s):
     """Burrows-Wheeler transform."""
     shifts = sorted_cyclic_shifts(s)
     t = "".join(s[j-1] for j in shifts)
     return t, shifts.index(0)
+
 
 def inverse_bwt(t, k):
     """Inverse Burrows-Wheeler transform."""
@@ -54,6 +57,7 @@ def inverse_bwt(t, k):
         chars.append(ch)
         k = j
     return "".join(chars)
+
 
 def inverse_bwt_slow(t, k):
     """Inverse Burrows-Wheeler Transform, common implementation.
