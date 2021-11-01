@@ -11,16 +11,7 @@ def orientation(a, b, c):
 
 
 def distance(p, q):
-    return (p[0] - q[0]) ** 2 + (p[1] - q[1]) ** 2   
-
-
-def lowest_point_index(points: list):
-    j = 0
-    key = itemgetter(1, 0)
-    for i in range(1, len(points)):
-        if key(points[i]) < key(points[j]):
-            j = i
-    return j
+    return (p[0] - q[0]) ** 2 + (p[1] - q[1]) ** 2
 
 
 def make_cmp(lo_point):
@@ -32,16 +23,15 @@ def make_cmp(lo_point):
 
 
 def convex_hull(points: list):
-    """Find convex hull of a given set of 2d-points.
+    """Find convex hull of a given set of 2d-points using Graham scan.
     
     The list should contain at least three points and there should be no duplicate.
     Each point is a tuple of two integers.
     """
-    i = lowest_point_index(points)
-    points[0], points[i] = points[i], points[0]
-    lo_point = points[0]
+    lo_point = min(points, key=itemgetter(1, 0))
     cmp = make_cmp(lo_point)
     points.sort(key=cmp_to_key(cmp))
+    assert lo_point is points[0]
 
     a = [lo_point]
     for j in range(1, len(points) - 1):
@@ -60,3 +50,23 @@ def convex_hull(points: list):
         h.append(p)
 
     return h
+
+
+if __name__ == '__main__':
+    print('Testing convex hull function...')
+    
+    points = [(-51, -6), (-30, -34), (-24, -74), (41, -6), (73, 17)]
+    assert convex_hull(points) == [(-24, -74), (73, 17), (-51, -6)]
+
+    points = [
+        (-9, -3), (-4, -6), (-4, -2), (-3, -9), (-3, 15), (0, 6), (0, 11),
+        (3, -4), (3, 16), (5, 19), (12, 13), (12, 17), (16, -7), (16, -3),
+        (16, 3), (16, 6), (17, -4), (17, 5), (19, -8)
+    ]
+    h = [(-3, -9), (19, -8), (17, 5), (12, 17), (5, 19), (-3, 15), (-9, -3)]
+    assert convex_hull(points) == h
+
+    points = [(0, 0), (0, 3), (1, 1), (1, 2), (2, 2), (3, 1), (3, 3), (4, 4)]
+    assert convex_hull(points) == [(0, 0), (3, 1), (4, 4), (0, 3)]
+
+    print('Tests successfully passed.')

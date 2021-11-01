@@ -31,9 +31,9 @@ def iexp(b, e):
     return p
 
 
-# When trying to understand this algorithm, GeeksForGeeks article about modular exponentation helped us.
 def mod_exp(b, e, m):
     """Modular exponentiation."""
+    # When trying to understand this algorithm, GeeksForGeeks article about modular exponentation helped us.
     acc, p = b, 1
     while e != 0:
         q, r = divmod(e, 2)
@@ -44,16 +44,17 @@ def mod_exp(b, e, m):
     return p
 
 
-if __name__ == "__main__":
-    print("Testing exponentiation function.")
+if __name__ == '__main__':
+    print('Testing exponentiation function.')
     assert rexp(10, 5) == iexp(10, 5) == pow(10, 5)
     assert rexp(7, 3) == iexp(7, 3) == pow(7, 3)
     assert rexp(2, 12) == iexp(2, 12) == pow(2, 12)
     assert rexp(0, 12) == iexp(0, 12) == pow(0, 12)
     assert rexp(11, 0) == iexp(11, 0) == pow(11, 0)
     assert rexp(145211, 2048) == iexp(145211, 2048) == pow(145211, 2048)
-    print("Tests successfully passed.")
-    print("Testing modular exponentiation function")
+    print('Tests successfully passed.')
+
+    print('Testing modular exponentiation function')
     assert mod_exp(10, 5, 7) == pow(10, 5, 7)
     assert mod_exp(7, 3, 4) == pow(7, 3, 4)
     assert mod_exp(2, 12, 2) == pow(2, 12, 2)
@@ -61,4 +62,4 @@ if __name__ == "__main__":
     assert mod_exp(11, 0, 6) == pow(11, 0, 6)
     assert mod_exp(145211, 785, 678521) == pow(145211, 785, 678521)
     assert mod_exp(6342545211, 774585, 1000000009) == pow(6342545211, 774585, 1000000009)
-    print("Tests successfully passed.")
+    print('Tests successfully passed.')

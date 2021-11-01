@@ -1,7 +1,7 @@
 from collections import namedtuple
 
 
-Interval = namedtuple("Interval", ["begin", "end", "index"])
+Interval = namedtuple('Interval', ['begin', 'end', 'index'])
 
 
 def min_interval_cover(target, parts):

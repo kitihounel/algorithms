@@ -3,7 +3,7 @@ from heapq import heapify, heappop, heappush
 
 
 def toposort(vertices: set, neighbors: dict):
-    """Topological sort of a graph, using Kahn's algorithm"""
+    """Topological sort using Kahn's algorithm."""
     indegrees = Counter()
     for u in vertices:
         indegrees.update(neighbors[u])
@@ -22,8 +22,8 @@ def toposort(vertices: set, neighbors: dict):
     return False if k != len(vertices) else ordering
 
 
-if __name__ == "__main__":
-    print("Testing toposort function...")
+if __name__ == '__main__':
+    print('Testing toposort function...')
     
     vertices = {1, 2, 3}
     neighbors = {1: [2, 3], 2: [3], 3: []}
@@ -37,4 +37,4 @@ if __name__ == "__main__":
     neighbors = {1: [2], 2: [3], 3: [], 4: [5], 5: []}
     assert toposort(vertices, neighbors) == [1, 2, 3, 4, 5]
 
-    print("All tests passed.")
+    print('Tests successfully passed.')

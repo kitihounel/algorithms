@@ -10,6 +10,8 @@ def matrix_product(a, b):
 
 
 if __name__ == "__main__":
+    print('Testing matrix product function.')
+
     a = [[1, 2], [3, 4]]
     assert matrix_product(a, a) == [[7, 10], [15, 22]]
 
@@ -25,3 +27,5 @@ if __name__ == "__main__":
 
     e = [[15, 7, -9], [5, -5, -2], [12, 8, 3]]
     assert matrix_product(i, e) == e
+
+    print('Tests successfully passed.')

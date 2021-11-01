@@ -30,11 +30,11 @@ def int_to_bt(x: int) -> str:
     return ''.join(symbols[d] for d in digits)
 
 
-if __name__ == "__main__":
-    print("Testing balanced ternary function.")
+if __name__ == '__main__':
+    print('Testing balanced ternary function.')
     assert int_to_bt(64) == '+-+0+'
     assert int_to_bt(-64) == '-+-0-'
     assert int_to_bt(-5) == '-++'
     assert int_to_bt(237) == '+00-+0'
     assert int_to_bt(-237) == '-00+-0'
-    print("Tests successfully passed.")
+    print('Tests successfully passed.')

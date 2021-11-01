@@ -62,8 +62,8 @@ def min_spanning_tree(n, edges):
     return tree, cost, ds.subset_count
 
 
-if __name__ == "__main__":
-    print("Checking min spanning trees...")
+if __name__ == '__main__':
+    print('Checking min spanning trees...')
     
     edges = [(0, 1, 1), (1, 2, 2), (1, 3, 3), (2, 3, 0)]
     assert min_spanning_tree(4, edges) == ([(0, 1), (1, 2), (2, 3)], 3, 1)
@@ -74,4 +74,4 @@ if __name__ == "__main__":
     edges = []
     assert min_spanning_tree(3, edges) == ([], 0, 3)
 
-    print("All tests passed.")
+    print('Tests successfully passed.')
