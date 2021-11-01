@@ -1,10 +1,8 @@
 """Simple closed path. From https://geeksforgeeks.org/find-simple-closed-path-for-a-given-set-of-points."""
 from functools import cmp_to_key
+from operator import itemgetter
 
-
-COLINEAR = 0
-CLOCKWISE = 1
-COUNTER_CLOCKWISE = 2
+COLINEAR, CLOCKWISE, COUNTER_CLOCKWISE = 0, 1, 2
 
 
 def orientation(p, q, r):
@@ -18,12 +16,12 @@ def distance(p, q):
 
 
 def closed_point_path(a):
-    refPoint = min(a, key=lambda p: (p[1], p[0]))
+    lo_point = min(a, key=itemgetter(1, 0))
 
-    def compare(p, q):
-        o = orientation(refPoint, p, q)
+    def cmp(p, q):
+        o = orientation(lo_point, p, q)
         if o == 0:
-            return -1 if distance(refPoint, q) >= distance(refPoint, p) else 1
+            return -1 if distance(lo_point, q) >= distance(lo_point, p) else 1
         return -1 if o == COUNTER_CLOCKWISE else 1
 
-    return sorted(a, key=cmp_to_key(compare))
+    return sorted(a, key=cmp_to_key(cmp))
