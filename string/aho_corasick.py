@@ -8,9 +8,9 @@ from collections import deque, defaultdict
 class TrieNode:
     def __init__(self):
         self.children = {}
-        self.suffixLink = None
-        self.outputLink = None
-        self.patternIndex = -1
+        self.suffix_link = None
+        self.output_link = None
+        self.pattern_index = -1
 
 
 def build_trie(root, words):
@@ -22,28 +22,28 @@ def build_trie(root, words):
                 child = TrieNode()
                 current.children[c] = child
             current = child
-        current.patternIndex = j
+        current.pattern_index = j
 
 
 def build_suffix_and_output_links(root):
-    root.suffixLink = root
+    root.suffix_link = root
 
     q = deque()
     for node in root.children.values():
-        node.suffixLink = root
+        node.suffix_link = root
         q.append(node)
 
     while len(q) != 0:
         current = q.popleft()
         for c, child in current.children.items():
-            tmp = current.suffixLink
+            tmp = current.suffix_link
             while c not in tmp.children and tmp != root:
-                tmp = tmp.suffixLink
-            child.suffixLink = tmp.children[c] if c in tmp.children else root
+                tmp = tmp.suffix_link
+            child.suffix_link = tmp.children[c] if c in tmp.children else root
             q.append(child)
 
-        i = current.suffixLink.patternIndex
-        current.outputLink = current.suffixLink if i >= 0 else current.suffixLink.outputLink
+        i = current.suffix_link.pattern_index
+        current.output_link = current.suffix_link if i >= 0 else current.suffix_link.output_link
 
 
 def aho_corasick(text, patterns):
@@ -51,25 +51,25 @@ def aho_corasick(text, patterns):
     build_trie(root, patterns)
     build_suffix_and_output_links(root)
 
-    matchIndexes = defaultdict(list)
+    match_indexes = defaultdict(list)
     parent = root
     j = 0
     while j < len(text):
         c = text[j]
         if c in parent.children:
             parent = parent.children[c]
-            p = parent.patternIndex
+            p = parent.pattern_index
             if p >= 0:
-                matchIndexes[patterns[p]].append(j - len(patterns[p]) + 1)
-            tmp = parent.outputLink
+                match_indexes[patterns[p]].append(j - len(patterns[p]) + 1)
+            tmp = parent.output_link
             while tmp is not None:
-                p = tmp.patternIndex
-                matchIndexes[patterns[p]].append(j - len(patterns[p]) + 1)
-                tmp = tmp.outputLink
+                p = tmp.pattern_index
+                match_indexes[patterns[p]].append(j - len(patterns[p]) + 1)
+                tmp = tmp.output_link
         else:
             while parent != root and c not in parent.children:
-                parent = parent.suffixLink
+                parent = parent.suffix_link
             if c in parent.children:
                 continue
         j += 1
-    return matchIndexes
+    return match_indexes

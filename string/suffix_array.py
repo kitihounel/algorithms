@@ -45,18 +45,18 @@ def suffix_array(s):
     n = len(s)
     suffixes = [j for j in range(n)]
     ranks = [ord(c) for c in s]
-    sortKeys = [None for j in range(n)]
+    sort_keys = [None for j in range(n)]
     length, limit = 1, 2 * n
     while length < limit:
         h = length // 2
         for j in suffixes:
-            sortKeys[j] = (ranks[j], ranks[j+h] if  j + h < n else -1)
-        suffixes.sort(key=lambda j: sortKeys[j])
+            sort_keys[j] = (ranks[j], ranks[j+h] if  j + h < n else -1)
+        suffixes.sort(key=lambda j: sort_keys[j])
 
         ranks[suffixes[0]] = 0
         for j in range(1, n):
             p, c = suffixes[j-1], suffixes[j]
-            ranks[c] = ranks[p] + (1 if sortKeys[p] != sortKeys[c] else 0)
+            ranks[c] = ranks[p] + (1 if sort_keys[p] != sort_keys[c] else 0)
 
         length *= 2
 
