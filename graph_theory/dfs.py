@@ -5,9 +5,11 @@ def idfs(s, neighbors, start_time):
     """Iterative DFS"""
     if start_time is None:
         start_time = 0
+
     discovery_time = {s:start_time}
     finish_time = {}
     current_time = start_time + 1
+
     q = [s]
     visited = {s}
     neighbor_pointers = defaultdict(int)
@@ -43,6 +45,7 @@ def visit(u, neighbors, visited: set):
 
 
 def rdfs(vertices, neighbors):
+    """Recursive DFS."""
     visited = set()
     for u in vertices:
         if u not in visited:

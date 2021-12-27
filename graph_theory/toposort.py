@@ -25,15 +25,15 @@ def toposort(vertices: set, neighbors: dict):
 if __name__ == '__main__':
     print('Testing toposort function...')
     
-    vertices = {1, 2, 3}
+    vertices = [1, 2, 3]
     neighbors = {1: [2, 3], 2: [3], 3: []}
     assert toposort(vertices, neighbors) == [1, 2, 3]
 
-    vertices = {1, 2, 3}
+    vertices = [1, 2, 3]
     neighbors = {1: [2], 2: [3], 3: [1]}
     assert toposort(vertices, neighbors) is False
 
-    vertices = {1, 2, 3, 4, 5}
+    vertices = [1, 2, 3, 4, 5]
     neighbors = {1: [2], 2: [3], 3: [], 4: [5], 5: []}
     assert toposort(vertices, neighbors) == [1, 2, 3, 4, 5]
 
