@@ -2,8 +2,8 @@ def lswrc(s):
     """Compute length of the longest substring without repeated characters.
 
     The returned object is a tuple with two elements. The first element is
-    the left most substring that fulfills the condition and the second element
-    is the length of the substring.
+    the start index of the left most substring that fulfills the condition
+    and the second element is the length of the substring.
     """
     seen = {}
     best_length, current_length = 0, 0
